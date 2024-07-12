@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Video Stream</title>
+</head>
+<body>
+    <h1>Video Stream</h1>
+    <video id="video" width="640" height="480"  autoplay style="display:none;"></video>
+    <img id="processed-frame" width="640" height="480" style="display:none;">
+    <script>
+        let isProcessing = false;
+
+        // Access the camera
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(function (stream) {
+                var video = document.getElementById('video');
+                video.srcObject = stream;
+                video.play();
+                // Start capturing frames
+                captureFrame();
+            })
+            .catch(function (err) {
+                console.error("Error accessing the camera: " + err);
+            });
+
+        function captureFrame() {
+            if (isProcessing) return;
+            isProcessing = true;
+            var video = document.getElementById('video');
+            var canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            var context = canvas.getContext('2d');
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            var dataURL = canvas.toDataURL('image/jpeg');
+            sendFrameToServer(dataURL);
+        }
+
+        function sendFrameToServer(dataURL) {
+            fetch('/process_frame/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify({ frame: dataURL })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log("Processed frame received");
+                // Display the processed frame
+                var processedFrame = document.getElementById('processed-frame');
+                processedFrame.src = 'data:image/jpeg;base64,' + data.processed_frame;
+                processedFrame.style.display = 'block';  // Show the processed frame
+                isProcessing = false;
+                // Capture the next frame
+                captureFrame();
+            })
+            .catch(error => {
+                console.error("Error sending frame to server:", error);
+                isProcessing = false;
+                // Try capturing the next frame
+                captureFrame();
+            });
+        }
+    </script>
+</body>
+</html>
