@@ -8,12 +8,8 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = ">=3.11,<3.13"
 django = "^5.0.7"
-incrementalexplainer = {git = "git@github.com:SantiagoCalderon1999/IncrementalExplainer.git"}
+incrementalexplainer = {git = "https://github.com/SantiagoCalderon1999/IncrementalExplainer.git"}
 
-[[tool.poetry.source]]
-name = "torchcu118"
-url = "https://download.pytorch.org/whl/cu118"
-priority = "supplemental"
 
 [build-system]
 requires = ["poetry-core"]
