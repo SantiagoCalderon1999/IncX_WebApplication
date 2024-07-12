@@ -6,9 +6,13 @@ authors = ["Santiago Calderón <santiagocalderon1999@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = ">=3.11,<3.13"
 django = "^5.0.7"
 
+[[tool.poetry.source]]
+name = "torchcu118"
+url = "https://download.pytorch.org/whl/cu118"
+priority = "supplemental"
 
 [build-system]
 requires = ["poetry-core"]
