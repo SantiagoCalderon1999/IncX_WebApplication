@@ -8,6 +8,7 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = ">=3.11,<3.13"
 django = "^5.0.7"
+incrementalexplainer = {git = "git@github.com:SantiagoCalderon1999/IncrementalExplainer.git"}
 
 [[tool.poetry.source]]
 name = "torchcu118"
