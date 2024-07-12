@@ -30,7 +30,7 @@ env:
   AZURE_WEBAPP_NAME: ${{ secrets.WEBAPP_SECRET_NAME }}  # set this to the name of your Azure Web App
 
 on:
-  pull_request:
+  push:
     branches:
     - main
   workflow_dispatch:
