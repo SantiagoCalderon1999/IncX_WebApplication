@@ -8,9 +8,16 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = ">=3.11,<3.13"
 django = "^5.0.7"
-incrementalexplainer = {git = "https://github.com/SantiagoCalderon1999/IncrementalExplainer.git"}
 opencv-python = "4.9.0.80"
+torch = {version = "^2.3.1+cu118", source = "torchcu118"}
+torchvision = {version = "^0.18.1+cu118", source = "torchcu118"}
+incx = "0.0.2"
 
+
+[[tool.poetry.source]]
+name = "torchcu118"
+url = "https://download.pytorch.org/whl/cu118"
+priority = "supplemental"
 
 [build-system]
 requires = ["poetry-core"]

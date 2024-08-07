@@ -5,7 +5,7 @@ import json
 import base64
 import cv2
 import numpy as np
-from incrementalexplainer import increx, yolo, d_rise
+from incx import incx, yolo, d_rise
 import uuid
 from collections import defaultdict
 import os
@@ -14,10 +14,10 @@ class VideoProcessor:
     def __init__(self):
         self.is_frame_processed = False
         self.model = yolo.Yolo()
-        num_mutants = int(os.getenv('NUM_MUTANTS')) if os.getenv('NUM_MUTANTS') else 400
+        num_mutants = int(os.getenv('NUM_MUTANTS')) if os.getenv('NUM_MUTANTS') else 1000
         num_divisions = int(os.getenv('SALIENCY_MAP_DIVISIONS')) if os.getenv('SALIENCY_MAP_DIVISIONS') else 100
         self.explainer = d_rise.DRise(self.model, num_mutants=num_mutants)
-        self.incRex = increx.IncRex(self.model, self.explainer, saliency_map_divisions=num_divisions)
+        self.incRex = incx.IncX(self.model, self.explainer, saliency_map_divisions=num_divisions)
 
     def process_frame(self, frame):
         nparr = np.frombuffer(base64.b64decode(frame.split(',')[1]), np.uint8)
