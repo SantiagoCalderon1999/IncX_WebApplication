@@ -7,7 +7,9 @@ RUN apt-get update && \
     build-essential \
     ffmpeg \
     libsm6 \
-    libxext6 && \
+    libxext6 \
+    sqlite3 \
+    libsqlite3-dev && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
@@ -22,4 +24,4 @@ RUN poetry config virtualenvs.create false && \
 
 EXPOSE 8000
 
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["sh", "-c", "poetry run python manage.py migrate && poetry run python manage.py runserver 0.0.0.0:8000"]
