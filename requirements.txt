@@ -83,8 +83,8 @@ sympy==1.13.0
 tbb==2021.13.0
 threadpoolctl==3.5.0
 tifffile==2024.7.2
-torch==2.3.1+cu118
-torchvision==0.18.1+cu118
+torch==2.3.1
+torchvision==0.18.1
 tornado==6.4.1
 tqdm==4.66.4
 traitlets==5.14.3
