@@ -32,7 +32,7 @@ DEBUG = True
 
 # Read ALLOWED_HOSTS from environment variable
 allowed_hosts = os.getenv('ALLOWED_HOSTS', '[]')
-ALLOWED_HOSTS = ast.literal_eval(allowed_hosts)
+ALLOWED_HOSTS = ['.vercel.app']
 
 
 # Application definition
